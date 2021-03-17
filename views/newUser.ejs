@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+    <%- include('./partials/header.ejs') %>
+<body>
+    <%- include('./partials/nav.ejs') %>
+
+    <h2>Create a new user</h2>
+    <form action = "/newUser/createUser" method = "POST">
+        <div>
+            <p><%= errorMessage %></p>
+            <label for = "username">Username</label>
+            <input type = "username" id = "username" name = "username" required>
+        </div>
+        <div>
+            <label for = "password">Password</label>
+            <input type = "password" id = "password" name = "password" required>
+        </div>
+        <div>
+            <label for = "role">Choose role:</label>
+            <select id = "role" name = "role">
+                <option value = "admin">Admin</option>
+                <option value = "guest">Guest</option>
+                <option value = "ordinary">Ordinary</option>
+            </select>
+        </div>
+        <button type = "submit">Create User</button>
+    </form>
+    <h2>View/Update/Delete Users</h2>
+
+    <ul>
+        <!-- Using express params and a for loop to add modify/delete/update/view functionality -->
+        <%for(var i = 0; i < usernameList.length; i++){%>
+            <li>Username:   <%= usernameList[i].username%>
+
+                <%var roleID = "roleID"+i%>
+                <p id="<%=roleID%>" style="display: none;">
+                    Role: <%= usernameList[i].role %>
+                </p>
+
+                <button onclick="showDetails('<%=roleID%>')">View Details</button>
+
+                <form action="/newUser/updatePass/<%= usernameList[i].username %>" method="POST">
+                    <input type = "password" id = "password" name = "password" required>
+                    <button type = "submit">Update Password</button>
+                </form>
+
+                <form action="/newUser/updateRole/<%= usernameList[i].username %>" method="POST">
+                    <select id = "role" name = "role">
+                        <option value = "admin">Admin</option>
+                        <option value = "guest">Guest</option>
+                        <option value = "ordinary">Ordinary</option>
+                    </select>
+                    <button type = "submit">Update Role</button>
+                </form>
+
+                <form action = "/newUser/deleteUser/<%= usernameList[i].username %>" method = "POST">
+                    <button type="submit"> Delete</button>
+                </form>
+
+            </li>
+        <%}%>
+    </ul>
+
+    <%- include('./partials/footer.ejs') %>
+
+    <script>
+        function showDetails(roleID) {
+            var x = document.getElementById(roleID);
+            if (x.style.display === "none") {
+                x.style.display = "block";
+            } else {
+                x.style.display = "none";
+            }
+        }
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,28 @@
+body {
+  padding: 50px;
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+
+a {
+  color: #00B7FF;
+}
+
+@font-face {
+  font-family: 'Source Code Pro', monospace;
+  @import url('https://fonts.googleapis.com/css2?family=Source+Code+Pro&display=swap');
+  color: blue;
+  font-size: 1000px;
+}
+
+body {
+  font-family: 'Source Code Pro', monospace;
+}
+head {
+  font-family: 'Source Code Pro', monospace;
+  color: #00B7FF;
+}
+
+input[type="password"]
+{
+  -webkit-text-security: disc;
+}
